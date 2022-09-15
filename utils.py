@@ -23,7 +23,7 @@ class Date:
 
     def __init__(self, date) -> None:
         self.date = self.format_date(date)
-        self.age = self.calculate_age(self.date)
+        self.age = self.calculate_age()
 
     @classmethod
     def format_date(cls, date: str) -> datetime:
@@ -31,12 +31,14 @@ class Date:
         d = datetime.datetime.strptime(date, cls.__KG_DATE_FORMAT)
         return d
 
-    @staticmethod
-    def calculate_age(date):
-        age = (datetime.datetime.now() - date).days // 365
+    def calculate_age(self):
+        age = (datetime.datetime.now() - self.date).days // 365
         return age
 
     def __str__(self):
+        return self.date.strftime(self.__KG_DATE_FORMAT)
+
+    def __repr__(self):
         return self.date.strftime(self.__KG_DATE_FORMAT)
 
 if __name__ == '__main__':

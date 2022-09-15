@@ -1,0 +1,12 @@
+{
+    "users": [
+        {
+            "id": "9de4167e-9e99-49ae-a9e9-ad2206ccd820",
+            "name": "Farhad",
+            "last_name": "Nizamov",
+            "birth_day": "29.12.1988",
+            "age": 33
+        }
+    ],
+    "counter": 1
+}
