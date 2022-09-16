@@ -30,6 +30,8 @@ class Date:
         'DD.MM.YYYY'
         d = datetime.datetime.strptime(date, cls.__KG_DATE_FORMAT)
         return d
+        
+
 
     def calculate_age(self):
         age = (datetime.datetime.now() - self.date).days // 365

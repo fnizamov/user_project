@@ -40,3 +40,35 @@ class ReadMixin:
         res = list(filter(lambda x: x['id'] == user_id, users))
         pprint(res[0] if res else 'Указанный ID не найден')
         return res[0] if res else None
+
+class UpdateMixin:
+    def update(self):
+        model = self._model
+
+        data = self.get_db_content()
+        user = self.get_user_by_id()
+        if user is not None:
+            data['users'].remove(user)
+            name = input('Введите имя: ') or user['name']
+            last_name = input('Введите фамилию: ') or user['last_name']
+            birth_day = input('Введите дату рождения: ') or user['birth_day']
+
+            new_user = model(name = name, last_name = last_name, birth_day = birth_day)
+            new_user.__dict__['id'] = user['id']
+            data['users'].append(new_user.as_dict)
+            self.write_to_db(data)
+            print('Данные успешно обновлены.')
+        else:
+            print('Указанный ID не найден.')
+
+class DeleteMixin:
+    def delete(self):
+        data = self.get_db_content()
+        user = self.get_user_by_id()
+        if user is not None:
+            data['users'].remove(user)
+            data.update(counter=len(data['users']))
+            self.write_to_db(data)
+            print('Пользователь успешно удален!')
+        else:
+            print('Указанный ID не найден.')
